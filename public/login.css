@@ -1,6 +1,6 @@
 /* ログイン画面のベース設定 */
 .login-container {
-    max-width: 440px;
+    max-width: 400px;
     margin: 4rem auto;
     padding: 3rem 2.5rem;
     background-color: #ffffff;
