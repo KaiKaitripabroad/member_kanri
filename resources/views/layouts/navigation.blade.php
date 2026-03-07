@@ -25,9 +25,13 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button type="button" class="flex items-center focus:outline-none rounded-full focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-gray-800 dark:text-gray-200 hover:bg-blue-700 transition">
-                                {{ mb_substr(Auth::user()->name, 0, 1) }}
-                            </div>
+                            @if(Auth::user()->photo)
+                                <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 hover:opacity-90 transition">
+                            @else
+                                <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-gray-800 dark:text-gray-200 hover:bg-blue-700 transition">
+                                    {{ mb_substr(Auth::user()->name, 0, 1) }}
+                                </div>
+                            @endif
                         </button>
                     </x-slot>
 
@@ -75,9 +79,13 @@
         <!-- Responsive: Profile / Logout -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="px-4 flex items-center gap-3">
-                <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold shrink-0">
-                    {{ mb_substr(Auth::user()->name, 0, 1) }}
-                </div>
+                @if(Auth::user()->photo)
+                    <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 shrink-0">
+                @else
+                    <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold shrink-0">
+                        {{ mb_substr(Auth::user()->name, 0, 1) }}
+                    </div>
+                @endif
                 <div>
                     <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
