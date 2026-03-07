@@ -1,28 +1,152 @@
 /* ログイン画面のベース設定 */
 .login-container {
-    max-width: 400px;
-    margin: 2rem auto;
-    padding: 2.5rem 2rem;
+    max-width: 440px;
+    margin: 4rem auto;
+    padding: 3rem 2.5rem;
     background-color: #ffffff;
     border-radius: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    font-family: "inter", "Noto Sans JP", sans-serif;
+    /* シャドウをより柔らかく広がりを持たせてモダンに */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+    font-family: "Inter", "Noto Sans JP", sans-serif;
 }
 
 /* ヘッダー */
 .login-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .login-title {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 800;
-    color: #1f2937;
-    margin-bottom: 0.5rem;
+    color: #111827;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.025em;
 }
 
 .login-subtitle {
-    font-size: 0.875rem;
+    font-size: 0.95rem;
     color: #6b7280;
+}
+
+/* フォーム要素 */
+.form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb; /* 枠線を少し薄くしてスッキリさせる */
+    border-radius: 0.6rem; /* 少し角丸を強める */
+    font-size: 1rem;
+    background-color: #f9fafb; /* 入力欄に薄い色をつけて質感を出す */
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    background-color: #ffffff; /* フォーカス時は白背景に */
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* パスワードリンク：右寄せにして視線を誘導 */
+.forget-password-group {
+    margin-top: -0.75rem;
+    margin-bottom: 2rem;
+    align-items: flex-end; /* 右寄せ */
+}
+
+.login-link {
+    color: #6b7280; /* 少し控えめな色にしてボタンを際立たせる */
+    text-decoration: none;
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.login-link:hover {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+/* ボタン共通 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700; /* 太字にして視認性を高める */
+    border-radius: 0.75rem; /* ボタンの角丸を少し強調 */
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+}
+
+.btn:active {
+    transform: scale(0.98); /* 押した時に少し沈む演出 */
+}
+
+/* ログインボタン */
+.btn-login {
+    background-color: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.btn-login:hover {
+    background-color: #1d4ed8;
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+/* 新規作成ボタン */
+.btn-register {
+    background-color: #ffffff;
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+.btn-register:hover {
+    background-color: #eff6ff;
+}
+
+/* 区切り線 */
+.separator {
+    display: flex;
+    align-items: center;
+    margin: 1.75rem 0;
+    color: #9ca3af;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.separator span {
+    padding: 0 1rem;
+}
+
+/* アクショングループ */
+.action-group {
+    margin-bottom: 0.75rem;
 }
