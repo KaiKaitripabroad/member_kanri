@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Member;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -12,13 +12,11 @@ class MemberController extends Controller
      */
     public function index()
     {
-        // ここで定義する左側の名前を Blade と合わせる
-        $totalMembers = \App\Models\Member::count();
-        $newJoins = \App\Models\Member::whereMonth('created_at', now()->month)->count();
-        $unconfirmed = 1;
-        $recentUpdates = \App\Models\Member::latest()->take(3)->get();
+        $totalMembers = User::count();
+        $newJoins = User::whereMonth('created_at', now()->month)->count();
+        $unconfirmed = 0;
+        $recentUpdates = User::latest()->take(3)->get();
 
-        // compactの中身も一致させる
         return view('dashboard', compact('totalMembers', 'newJoins', 'unconfirmed', 'recentUpdates'));
     }
 
@@ -41,7 +39,7 @@ class MemberController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Member $member)
+    public function show(User $user)
     {
         //
     }
@@ -49,7 +47,7 @@ class MemberController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Member $member)
+    public function edit(User $user)
     {
         //
     }
@@ -57,7 +55,7 @@ class MemberController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Member $member)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -65,7 +63,7 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Member $member)
+    public function destroy(User $user)
     {
         //
     }
