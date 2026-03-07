@@ -13,7 +13,9 @@ class MemberController extends Controller
     public function index()
     {
         $totalMembers = User::count();
-        $newJoins = User::whereMonth('created_at', now()->month)->count();
+        $newJoins = User::whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)
+            ->count();
         $unconfirmed = 0;
         $recentUpdates = User::latest()->take(3)->get();
 
