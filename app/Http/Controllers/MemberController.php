@@ -12,7 +12,14 @@ class MemberController extends Controller
      */
     public function index()
     {
-        //
+        // ここで定義する左側の名前を Blade と合わせる
+        $totalMembers = \App\Models\Member::count();
+        $newJoins = \App\Models\Member::whereMonth('created_at', now()->month)->count();
+        $unconfirmed = 1;
+        $recentUpdates = \App\Models\Member::latest()->take(3)->get();
+
+        // compactの中身も一致させる
+        return view('dashboard', compact('totalMembers', 'newJoins', 'unconfirmed', 'recentUpdates'));
     }
 
     /**
