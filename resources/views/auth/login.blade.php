@@ -5,9 +5,7 @@
         <div class="login-header">
             <h2 class="login-title">おかえりなさい👏</h2>
             <p class="login-subtitle">サークル管理アカウントにログイン</p>
-        </div>
-
-        <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('login') }}">
             @csrf
 
             <div class="form-group">
