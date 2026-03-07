@@ -20,9 +20,7 @@
                 <input type="password" name="password" class="form-input" placeholder="••••••••" required>
             </div>
 
-            <a href="{{ route('password.request') }}" class="forgot-link">
-                パスワードを忘れた方はこちら
-            </a>
+            
 
             <button type="submit" class="btn btn-login">
                 ログイン
