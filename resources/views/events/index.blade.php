@@ -1,5 +1,11 @@
 <x-app-layout>
     <div class="py-6 px-4 pb-24">
+        @if(session('error'))
+            <div class="mb-4 p-4 rounded-xl bg-red-50 text-red-700 text-sm">{{ session('error') }}</div>
+        @endif
+        @if(session('success'))
+            <div class="mb-4 p-4 rounded-xl bg-green-50 text-green-700 text-sm">{{ session('success') }}</div>
+        @endif
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold text-gray-900">イベント</h1>
             <a href="{{ route('events.create') }}" class="text-indigo-600 font-medium text-sm flex items-center gap-1">

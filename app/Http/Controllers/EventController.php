@@ -35,11 +35,18 @@ class EventController extends Controller
 
     public function create()
     {
+        if (empty(Auth::user()->role)) {
+            return redirect()->route('events.index')->with('error', '役職がある方のみイベントを投稿できます。プロフィールで役職を設定してください。');
+        }
         return view('events.create');
     }
 
     public function store(Request $request)
     {
+        if (empty(Auth::user()->role)) {
+            return redirect()->route('events.index')->with('error', '役職がある方のみイベントを投稿できます。');
+        }
+
         $validated = $request->validate([
             'title' => 'required|string|max:200',
             'event_date' => 'required|date',
