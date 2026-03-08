@@ -14,10 +14,11 @@
                 <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
                     <i class="fas fa-search"></i>
                 </span>
+
                 <input
                     type="text"
                     x-model="search"
-                    class="block w-full pl-12 pr-4 py-4 border-none bg-gray-100 rounded-2xl focus:ring-2 focus:ring-blue-500 text-lg placeholder-gray-400"
+                    class="block w-full pl-12 pr-4 py-4 border border-gray-300 bg-white rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg placeholder-gray-400 transition"
                     placeholder="名前・学籍番号で検索...">
             </div>
         </div>
