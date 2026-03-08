@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('title', 200);
             $table->date('event_date');
             $table->time('start_time')->nullable();
-            $table->string('location', 200)->nullable();
+            $table->string('location')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
             $table->text('description')->nullable();
             $table->boolean('attendance_enabled')->default(false);
             $table->timestamps();

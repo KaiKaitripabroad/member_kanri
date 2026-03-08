@@ -99,6 +99,18 @@
         </div>
 
         <div>
+            <x-input-label for="profile_location" :value="__('場所・住所（地図用）')" />
+            <input type="text" id="profile_location" name="location_name" value="{{ old('location_name', $user->location_name) }}"
+                   class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                   placeholder="住所や施設名を入力して候補から選択">
+            <input type="hidden" name="latitude" id="profile_latitude" value="{{ old('latitude', $user->latitude) }}">
+            <input type="hidden" name="longitude" id="profile_longitude" value="{{ old('longitude', $user->longitude) }}">
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">選択すると緯度・経度が保存され、メンバー詳細で地図表示されます</p>
+            <x-input-error class="mt-2" :messages="$errors->get('latitude')" />
+            <x-input-error class="mt-2" :messages="$errors->get('longitude')" />
+        </div>
+
+        <div>
             <x-input-label for="joined_at" :value="__('加入日')" />
             <x-text-input id="joined_at" name="joined_at" type="date" class="mt-1 block w-full" :value="old('joined_at', $user->joined_at?->format('Y-m-d'))" />
             <x-input-error class="mt-2" :messages="$errors->get('joined_at')" />
@@ -141,4 +153,27 @@
             @endif
         </div>
     </form>
+
+    @if(config('services.google.maps_api_key'))
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}&libraries=places&callback=initProfilePlace" async defer></script>
+    <script>
+        function initProfilePlace() {
+            if (typeof google === 'undefined' || !document.getElementById('profile_location')) return;
+            var input = document.getElementById('profile_location');
+            var latInput = document.getElementById('profile_latitude');
+            var lngInput = document.getElementById('profile_longitude');
+            var autocomplete = new google.maps.places.Autocomplete(input, { types: ['establishment', 'geocode'], componentRestrictions: { country: 'jp' } });
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (place.geometry) {
+                    latInput.value = place.geometry.location.lat();
+                    lngInput.value = place.geometry.location.lng();
+                }
+            });
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && document.querySelector('.pac-container') && document.querySelector('.pac-container').offsetParent !== null) e.preventDefault();
+            });
+        }
+    </script>
+    @endif
 </section>

@@ -52,6 +52,8 @@ class EventController extends Controller
             'event_date' => 'required|date',
             'start_time' => 'nullable|date_format:H:i',
             'location' => 'nullable|string|max:200',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
             'description' => 'nullable|string',
             'attendance_enabled' => 'required|boolean',
         ]);
@@ -76,7 +78,30 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-        return view('events.show', compact('event'));
+        $event->load(['attendances.member']);
+        $attendingCount = $event->attendances->where('status', Attendance::STATUS_ATTENDING)->count();
+        $notAttendingCount = $event->attendances->where('status', Attendance::STATUS_NOT_ATTENDING)->count();
+        $pendingCount = $event->attendances->where('status', Attendance::STATUS_PENDING)->count();
+        return view('events.show', compact('event', 'attendingCount', 'notAttendingCount', 'pendingCount'));
+    }
+
+    public function attendance(Event $event)
+    {
+        $event->load(['attendances.member']);
+        return view('events.attendance', compact('event'));
+    }
+
+    public function updateAttendance(Request $request, Event $event)
+    {
+        $event->load('attendances');
+        $request->validate(['attendances' => 'array', 'attendances.*' => 'in:ATTENDING,NOT_ATTENDING,PENDING']);
+        foreach ($request->input('attendances', []) as $attendanceId => $status) {
+            $att = $event->attendances->firstWhere('id', $attendanceId);
+            if ($att && in_array($status, [Attendance::STATUS_ATTENDING, Attendance::STATUS_NOT_ATTENDING, Attendance::STATUS_PENDING], true)) {
+                $att->update(['status' => $status]);
+            }
+        }
+        return redirect()->route('events.attendance', $event)->with('success', '出欠を更新しました');
     }
 
     public function edit(Event $event)

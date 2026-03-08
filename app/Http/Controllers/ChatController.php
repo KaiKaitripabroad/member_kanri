@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http; // ← Slack APIとの通信に必要です
 
+
 class ChatController extends Controller
 {
     private $token;
