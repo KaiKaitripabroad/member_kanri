@@ -13,9 +13,9 @@
                 <!-- Page title (Dashboard / Profile) -->
                 <div class="hidden sm:flex sm:items-center sm:ms-6 text-sm text-gray-500 dark:text-gray-400">
                     @if(request()->routeIs('profile.*'))
-                        {{ __('Profile') }}
+                    {{ __('Profile') }}
                     @else
-                        {{ __('Dashboard') }}
+                    {{ __('Dashboard') }}
                     @endif
                 </div>
             </div>
@@ -26,11 +26,11 @@
                     <x-slot name="trigger">
                         <button type="button" class="flex items-center focus:outline-none rounded-full focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                             @if(Auth::user()->photo)
-                                <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 hover:opacity-90 transition">
+                            <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 hover:opacity-90 transition">
                             @else
-                                <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-gray-800 dark:text-gray-200 hover:bg-blue-700 transition">
-                                    {{ mb_substr(Auth::user()->name, 0, 1) }}
-                                </div>
+                            <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-gray-800 dark:text-gray-200 hover:bg-blue-700 transition">
+                                {{ mb_substr(Auth::user()->name, 0, 1) }}
+                            </div>
                             @endif
                         </button>
                     </x-slot>
@@ -43,7 +43,7 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -68,11 +68,11 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @if(request()->routeIs('profile.*'))
-                <span class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-400">{{ __('Profile') }}</span>
+            <span class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-400">{{ __('Profile') }}</span>
             @else
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
             @endif
         </div>
 
@@ -80,11 +80,17 @@
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="px-4 flex items-center gap-3">
                 @if(Auth::user()->photo)
-                    <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 shrink-0">
+                <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 shrink-0">
                 @else
-                    <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold shrink-0">
-                        {{ mb_substr(Auth::user()->name, 0, 1) }}
-                    </div>
+                <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold shrink-0">
+                    {{ mb_substr(Auth::user()->name, 0, 1) }}
+                </div>
+                @endif
+                @if(!Auth::user()->photo)
+                {{-- 2. ログインしていない場合のデフォルト表示 --}}
+                <div class="bg-gray-300 text-white rounded-full w-10 h-10 flex items-center justify-center">
+                    👤
+                </div>
                 @endif
                 <div>
                     <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
@@ -100,7 +106,7 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                        onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
