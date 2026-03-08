@@ -47,9 +47,8 @@
             </div>
         </div>
 
-        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 flex items-center justify-center transition-all">
-            <span class="mr-2">👥</span> メンバー一覧を見る
-        </button>
+        <a href="{{ route('members.index') }}" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 flex items-center justify-center transition-all no-underline">
+        <span class="mr-2">👥</span> メンバー一覧を見る</a>
     </div>
 
     @include('components.bottom-nav')

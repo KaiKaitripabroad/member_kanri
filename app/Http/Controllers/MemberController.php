@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 class MemberController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * ダッシュボード画面を表示する
      */
-    public function index()
+    public function dashboard()
     {
         $totalMembers = User::count();
         $newJoins = User::whereYear('created_at', now()->year)
@@ -23,50 +23,14 @@ class MemberController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * メンバー一覧画面を表示する
      */
-    public function create()
+    public function index()
     {
-        //
-    }
+        // データベースの全ユーザーを取得
+        $allMembers = User::all();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        //
+        // メンバー一覧用のBlade（resources/views/members/index.blade.php）を表示
+        return view('members.index', compact('allMembers'));
     }
 }
