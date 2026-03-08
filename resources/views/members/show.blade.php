@@ -104,6 +104,23 @@
                 </div>
             </div>
 
+            @if($user->latitude !== null && $user->longitude !== null)
+            <div class="mb-8">
+                <h3 class="text-sm font-bold text-gray-400 mb-3 ml-1">場所</h3>
+                <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+                    @if($user->location_name)
+                        <div class="p-4 border-b border-gray-50">
+                            <p class="text-sm text-gray-800 font-medium">📍 {{ $user->location_name }}</p>
+                        </div>
+                    @endif
+                    <div class="p-3 text-xs text-gray-500">
+                        緯度: {{ $user->latitude }} / 経度: {{ $user->longitude }}
+                    </div>
+                    <div id="member-map" class="w-full h-48 bg-gray-100" data-lat="{{ $user->latitude }}" data-lng="{{ $user->longitude }}"></div>
+                </div>
+            </div>
+            @endif
+
             <div class="bg-gray-100 rounded-xl p-5 border border-gray-200">
                 <p class="text-xs text-gray-400 leading-relaxed text-center">
                     自分の情報を削除・編集するには<br>
@@ -112,6 +129,25 @@
             </div>
         </div>
     </div>
+
+    @if($user->latitude !== null && $user->longitude !== null && config('services.google.maps_api_key'))
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_api_key') }}&callback=initMemberMap" async defer></script>
+    <script>
+        function initMemberMap() {
+            var el = document.getElementById('member-map');
+            if (typeof google === 'undefined' || !el) return;
+            var lat = parseFloat(el.getAttribute('data-lat'), 10);
+            var lng = parseFloat(el.getAttribute('data-lng'), 10);
+            var map = new google.maps.Map(el, {
+                center: { lat: lat, lng: lng },
+                zoom: 15,
+                disableDefaultUI: true,
+                zoomControl: true
+            });
+            new google.maps.Marker({ map: map, position: { lat: lat, lng: lng } });
+        }
+    </script>
+    @endif
 
     <x-bottom-nav />
 </x-app-layout>

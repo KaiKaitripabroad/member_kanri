@@ -20,10 +20,14 @@
                         <dd class="text-gray-900">{{ \Carbon\Carbon::parse($event->start_time)->format('H:i') }}</dd>
                     </div>
                 @endif
-                @if($event->location)
+                @if($event->latitude && $event->longitude && $event->location)
                     <div class="flex">
                         <dt class="w-24 text-gray-500 shrink-0">場所</dt>
-                        <dd class="text-gray-900">{{ $event->location }}</dd>
+                        <dd class="text-gray-900">
+                            <a href="https://maps.google.com/?q={{ $event->latitude }},{{ $event->longitude }}" target="_blank" class="text-indigo-600 hover:underline">
+                                {{ $event->location }}
+                            </a>
+                        </dd>
                     </div>
                 @endif
                 @if($event->description)
@@ -33,8 +37,27 @@
                     </div>
                 @endif
             </dl>
+
+            @if($event->attendance_enabled)
+                <div class="mt-6 pt-4 border-t border-gray-100">
+                    <h3 class="text-sm font-bold text-gray-700 mb-3">出欠状況</h3>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-700">参加 {{ $attendingCount }}人</span>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">不参加 {{ $notAttendingCount }}人</span>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">未回答 {{ $pendingCount }}人</span>
+                    </div>
+                    <p class="text-xs text-gray-500">出欠の入力・変更は「出欠確認」から行えます。</p>
+                </div>
+            @endif
+
             <div class="mt-6 flex gap-3">
-                <a href="{{ route('events.edit', $event) }}" class="flex-1 text-center bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-xl">編集</a>
+                @if($event->attendance_enabled)
+                    <a href="{{ route('events.attendance', $event) }}" class="flex-1 text-center bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-xl">
+                        出欠確認
+                    </a>
+                @else
+                    <a href="{{ route('events.edit', $event) }}" class="flex-1 text-center bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-xl">編集</a>
+                @endif
                 <form action="{{ route('events.destroy', $event) }}" method="POST" class="flex-1" onsubmit="return confirm('このイベントを削除しますか？');">
                     @csrf
                     @method('DELETE')

@@ -7,6 +7,10 @@
             <div class="text-xl text-gray-300">👥</div>
             <div class="text-[10px] text-gray-400">メンバー</div>
         </a>
+        <a href="{{ route('chat.index') }}" class="block text-center no-underline min-w-[4rem]">
+            <div class="text-xl text-gray-300">💬</div>
+            <div class="text-[10px] text-gray-400">チャット</div>
+        </a>
         <a href="{{ route('events.index') }}" class="block text-center no-underline min-w-[4.5rem]">
             <div class="text-3xl mb-1 {{ request()->routeIs('events.*') ? '' : 'grayscale opacity-60' }}">📅</div>
             <div class="text-[11px] {{ request()->routeIs('events.*') ? 'text-blue-600 font-bold' : 'text-gray-500' }}">イベント</div>

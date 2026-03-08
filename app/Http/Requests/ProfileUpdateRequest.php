@@ -39,6 +39,9 @@ class ProfileUpdateRequest extends FormRequest
             'department' => ['nullable', 'string', 'max:100'],
             'grade' => ['nullable', 'integer', 'min:1', 'max:6'],
             'joined_at' => ['nullable', 'date'],
+            'latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'longitude' => ['nullable', 'numeric', 'between:-180,180'],
+            'location_name' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-12 px-6">
+    <div class="py-12 pb-40 px-6">
         <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="bg-indigo-600 p-6 text-white text-center">
                 <h2 class="text-xl font-bold">チームチャット</h2>
@@ -40,22 +40,21 @@
     </div>
 
     <script>
-        const container = document.getElementById('message-container');
-        container.scrollTop = container.scrollHeight;
-    </script>
-    <script>
         // メッセージエリアを一番下にスクロールさせる
         const container = document.getElementById('message-container');
-        container.scrollTop = container.scrollHeight;
+        if (container) {
+            container.scrollTop = container.scrollHeight;
+        }
 
         // 5秒ごとにチェックしてリロードする
         setInterval(function() {
-        const inputField = document.querySelector('input[name="message"]');
-        
-        // 入力欄が空（文字が入っていない）の時だけリロードを実行する
-        if (inputField && inputField.value.trim() === "") {
-            location.reload();
-        }
+            const inputField = document.querySelector('input[name="message"]');
+            
+            // 入力欄が空（文字が入っていない）の時だけリロードを実行する
+            if (inputField && inputField.value.trim() === "") {
+                location.reload();
+            }
         }, 5000);
     </script>
+    @include('components.bottom-nav')
 </x-app-layout>

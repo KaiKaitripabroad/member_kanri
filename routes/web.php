@@ -29,6 +29,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('events/{event}/attendance', [EventController::class, 'attendance'])->name('events.attendance');
+Route::post('events/{event}/attendance', [EventController::class, 'updateAttendance'])->name('events.attendance.update');
 Route::resource('events', EventController::class);
 
 require __DIR__.'/auth.php';
