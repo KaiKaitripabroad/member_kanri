@@ -17,6 +17,8 @@ class Event extends Model
         'event_date',
         'start_time',
         'location',
+        'latitude',
+        'longitude',
         'description',
         'attendance_enabled',
     ];
