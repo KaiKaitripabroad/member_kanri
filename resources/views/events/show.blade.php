@@ -58,18 +58,19 @@
             @endif
 
             {{-- 3. ボタンを控えめに（右寄せ、または左寄せでコンパクトに） --}}
+            {{-- ボタンエリア：justify-start を使い、中身の幅に合わせる --}}
             <div class="mt-10 flex items-center justify-start gap-4">
-                @if($event->attendance_enabled)
-                <a href="{{ route('events.attendance', $event) }}" class="flex-1 text-center bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-xl">
-                    出欠確認
-                </a>
-                @else
-                <a href="{{ route('events.edit', $event) }}" class="flex-1 text-center bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-xl">編集</a>
+             @if($event->attendance_enabled)
+                    {{-- inline-block を指定して、縦長になるのを防ぎます --}}
+                    <a href="{{ route('events.attendance', $event) }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-2xl shadow-sm transition-all active:scale-95 text-center">
+                       出欠確認
+                     </a>
                 @endif
-                
-                <form action="{{ route('events.destroy', $event) }}" method="POST" onsubmit="return confirm('このイベントを削除しますか？');">
-                    @csrf
-                    @method('DELETE')
+    
+             <form action="{{ route('events.destroy', $event) }}" method="POST" onsubmit="return confirm('このイベントを削除しますか？');">
+                        @csrf
+                @method('DELETE')
+                {{-- w-full を外すか、親のformに幅を持たせないことで主張を抑えます --}}
                     <button type="submit" class="text-gray-400 hover:text-red-500 hover:bg-red-50 px-4 py-3 rounded-2xl text-sm font-medium transition-all">
                         削除する
                     </button>
