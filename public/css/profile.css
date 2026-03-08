@@ -1,0 +1,64 @@
+/* 1. 全体の背景色を微調整：真っ白ではなく、ごくわずかに青みのあるグレーに */
+body {
+    background-color: #f8fafc !important; /* 少し明るい高級感のあるグレー */
+}
+
+/* 2. カードのデザイン：境界線を消し、柔らかい影で浮き上がらせる */
+body form[method="post"]:not(#send-verification) {
+    background-color: #ffffff !important;
+    border-radius: 32px !important;
+    border: none !important; /* 枠線を消してスッキリ */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04) !important; /* 非常に柔らかい影 */
+    padding: 3rem !important;
+    width: 100% !important;
+}
+
+/* 3. 各行の区切り：細いドットライン、または非常に薄い線に */
+body form[method="post"] > div {
+    border-bottom: 1px solid #f1f5f9 !important;
+    padding: 1.5rem 0 !important;
+}
+
+/* 4. ラベル：少し青みのあるグレーにして、上品な印象に */
+body form[method="post"] label {
+    color: #64748b !important; /* スレートグレー */
+    font-size: 0.85rem !important;
+    letter-spacing: 0.025em !important;
+}
+
+/* 5. 入力欄：フォーカス時に少し色が浮き出るように */
+body form[method="post"] input:not([type="file"]),
+body form[method="post"] select,
+body form[method="post"] textarea {
+    color: #0f172a !important; /* 深いネイビーブラック */
+    font-size: 1.05rem !important;
+    transition: all 0.3s ease !important;
+}
+
+/* 6. 注釈テキスト：さらに淡い色にして、視覚的なノイズを減らす */
+body form[method="post"] p.text-xs {
+    color: #94a3b8 !important;
+    font-weight: 400 !important;
+}
+
+/* 7. 保存ボタン：グラデーションと強い影でモダンな存在感を出す */
+body button[type="submit"] {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 1.2rem 5rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em !important;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+body button[type="submit"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.3) !important;
+}
+
+/* 8. 入力中のハイライト効果（アクセント） */
+body form[method="post"] input:focus {
+    color: #3b82f6 !important; /* フォーカス時に青色に */
+}
