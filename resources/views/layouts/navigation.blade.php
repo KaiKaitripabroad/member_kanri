@@ -80,13 +80,13 @@
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="px-4 flex items-center gap-3">
                 @if(Auth::user()->photo)
-                <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 shrink-0">
+                <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="" class="w-10 h-10 rounded-full object-contain border-2 border-gray-200 dark:border-gray-600 shrink-0">
                 @else
                 <div class="bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold shrink-0">
                     {{ mb_substr(Auth::user()->name, 0, 1) }}
                 </div>
                 @endif
-                @if(!Auth::user()->photo)
+                @if(!Auth::user())
                 {{-- 2. ログインしていない場合のデフォルト表示 --}}
                 <div class="bg-gray-300 text-white rounded-full w-10 h-10 flex items-center justify-center">
                     👤

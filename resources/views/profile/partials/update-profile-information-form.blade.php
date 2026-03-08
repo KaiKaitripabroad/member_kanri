@@ -21,7 +21,7 @@
             <x-input-label for="photo" :value="__('プロフィール写真')" />
             @if($user->photo)
                 <div class="mt-2 mb-2">
-                    <img src="{{ asset('storage/' . $user->photo) }}" alt="プロフィール写真" class="w-24 h-24 rounded-full object-cover border border-gray-200">
+                    <img src="{{ asset('storage/' . $user->photo) }}" alt="プロフィール写真" class="w-24 h-24 rounded-full object-contain border border-gray-200">
                 </div>
             @endif
             <input id="photo" name="photo" type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" accept="image/jpeg,image/png,image/jpg,image/gif" />
@@ -60,18 +60,54 @@
         </div>
 
         <div>
-            <x-input-label :value="__('役職についている')" />
-            <div class="mt-2 flex gap-6">
-                <label class="inline-flex items-center">
-                    <input type="radio" name="has_position" value="1" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" {{ old('has_position', $user->has_position) ? 'checked' : '' }}>
-                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">はい</span>
-                </label>
-                <label class="inline-flex items-center">
-                    <input type="radio" name="has_position" value="0" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" {{ old('has_position', $user->has_position) ? '' : 'checked' }}>
-                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">いいえ</span>
-                </label>
-            </div>
-            <x-input-error class="mt-2" :messages="$errors->get('has_position')" />
+            <x-input-label for="role" :value="__('役職（任意）')" />
+            <select id="role" name="role" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                <option value="">なし</option>
+                <option value="代表（部長）" {{ old('role', $user->role) === '代表（部長）' ? 'selected' : '' }}>代表（部長）</option>
+                <option value="副代表（副部長）" {{ old('role', $user->role) === '副代表（副部長）' ? 'selected' : '' }}>副代表（副部長）</option>
+                <option value="会計" {{ old('role', $user->role) === '会計' ? 'selected' : '' }}>会計</option>
+                <option value="書紀" {{ old('role', $user->role) === '書紀' ? 'selected' : '' }}>書紀</option>
+                <option value="広報" {{ old('role', $user->role) === '広報' ? 'selected' : '' }}>広報</option>
+                <option value="外務" {{ old('role', $user->role) === '外務' ? 'selected' : '' }}>外務</option>
+                <option value="企画" {{ old('role', $user->role) === '企画' ? 'selected' : '' }}>企画</option>
+            </select>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">役職がある場合のみイベントを投稿できます</p>
+            <x-input-error class="mt-2" :messages="$errors->get('role')" />
+        </div>
+
+        <div>
+            <x-input-label for="student_number" :value="__('学籍番号')" />
+            <x-text-input id="student_number" name="student_number" type="text" class="mt-1 block w-full" :value="old('student_number', $user->student_number)" placeholder="例: 202412345" />
+            <x-input-error class="mt-2" :messages="$errors->get('student_number')" />
+        </div>
+
+        <div>
+            <x-input-label for="department" :value="__('学部・学科')" />
+            <x-text-input id="department" name="department" type="text" class="mt-1 block w-full" :value="old('department', $user->department)" placeholder="例: 情報学部 情報学科" />
+            <x-input-error class="mt-2" :messages="$errors->get('department')" />
+        </div>
+
+        <div>
+            <x-input-label for="grade" :value="__('学年')" />
+            <select id="grade" name="grade" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                <option value="">選択してください</option>
+                @for($i = 1; $i <= 6; $i++)
+                    <option value="{{ $i }}" {{ old('grade', $user->grade) == $i ? 'selected' : '' }}>{{ $i }}年</option>
+                @endfor
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('grade')" />
+        </div>
+
+        <div>
+            <x-input-label for="joined_at" :value="__('加入日')" />
+            <x-text-input id="joined_at" name="joined_at" type="date" class="mt-1 block w-full" :value="old('joined_at', $user->joined_at?->format('Y-m-d'))" />
+            <x-input-error class="mt-2" :messages="$errors->get('joined_at')" />
+        </div>
+
+        <div>
+            <x-input-label for="notes" :value="__('備考')" />
+            <textarea id="notes" name="notes" rows="3" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="自由記述">{{ old('notes', $user->notes) }}</textarea>
+            <x-input-error class="mt-2" :messages="$errors->get('notes')" />
         </div>
 
         <div>

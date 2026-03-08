@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -24,8 +26,37 @@ class User extends Authenticatable
         'has_position',
         'phone',
         'gender',
-        'student_id',
+        'role',
+        'student_number',
+        'notes',
+        'department',
+        'grade',
+        'joined_at',
     ];
+
+    /**
+     * 1ユーザーは0または1つのメンバー情報（サークルメンバー）を持つ
+     */
+    public function member(): HasOne
+    {
+        return $this->hasOne(Member::class);
+    }
+
+    /**
+     * 作成したイベント
+     */
+    public function events(): HasMany
+    {
+        return $this->hasMany(Event::class, 'created_by');
+    }
+
+    /**
+     * 操作ログ
+     */
+    public function activityLogs(): HasMany
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,6 +79,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'has_position' => 'boolean',
+            'joined_at' => 'date',
         ];
     }
 }

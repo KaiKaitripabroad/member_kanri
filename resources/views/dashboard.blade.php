@@ -27,9 +27,15 @@
                 @php
                 $isNewThisMonth = $user->created_at->isCurrentMonth();
                 @endphp
-                <div class="flex items-center p-5 border-b border-gray-50 last:border-0">
-                    <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold mr-4 bg-indigo-500">
-                        {{ mb_substr($user->name, 0, 1) }}
+                <a href="{{ route('members.show', $user) }}" class="flex items-center p-5 border-b border-gray-50 last:border-0">
+                    <div href="{{ route('members.show', $user) }}" class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold mr-4 bg-indigo-500">
+                        @if($user->photo)
+                        <img src="{{ asset('storage/' . $user->photo) }}" class="w-full h-full object-cover" alt="">
+                        @else
+                        <div class="w-12 h-12 rounded-full bg-indigo-500 flex items-center justify-center text-white text-4xl font-bold mx-auto shadow-sm">
+                            {{ mb_substr($user->name, 0, 1) }}
+                        </div>
+                        @endif
                     </div>
                     <div class="flex-1">
                         <div class="flex justify-between items-start">
@@ -42,13 +48,14 @@
                             </span>
                         </div>
                     </div>
-                </div>
+                </a>
                 @endforeach
             </div>
         </div>
 
-        <a href="{{ route('members.index') }}" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 flex items-center justify-center transition-all no-underline">
-        <span class="mr-2">👥</span> メンバー一覧を見る</a>
+        <a href="{{ route('members.index') }}" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 flex items-center justify-center transition-all">
+            <span class="mr-2">👥</span> メンバー一覧を見る
+        </a>
     </div>
 
     @include('components.bottom-nav')

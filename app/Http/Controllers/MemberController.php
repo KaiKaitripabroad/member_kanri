@@ -33,4 +33,26 @@ class MemberController extends Controller
         // メンバー一覧用のBlade（resources/views/members/index.blade.php）を表示
         return view('members.index', compact('allMembers'));
     }
+
+    public function show(User $member)
+    {
+        return view('members.show', ['user' => $member]);
+    }
+
+    public function edit(User $member)
+    {
+        return view('members.edit', compact('member'));
+    }
+
+    public function update(Request $request, User $member)
+    {
+        $member->update($request->all());
+        return redirect()->route('members.index')->with('success', 'メンバーを更新しました');
+    }
+
+    public function destroy(User $member)
+    {
+        $member->delete();
+        return redirect()->route('members.index')->with('success', 'メンバーを削除しました');
+    }
 }
