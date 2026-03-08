@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\EventController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -17,5 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::resource('events', EventController::class)->only([
+    'index', 'create', 'store', 'show', 'edit', 'update', 'destroy'
+]);
 
 require __DIR__.'/auth.php';
