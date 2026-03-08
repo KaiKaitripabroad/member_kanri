@@ -47,9 +47,8 @@
             </div>
         </div>
 
-        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 flex items-center justify-center transition-all">
-            <span class="mr-2">👥</span> メンバー一覧を見る
-        </button>
+        <a href="{{ route('members.index') }}" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 flex items-center justify-center transition-all no-underline">
+        <span class="mr-2">👥</span> メンバー一覧を見る</a>
     </div>
 
     <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 py-3 px-10 flex justify-between items-center">
@@ -57,10 +56,10 @@
             <div class="text-xl text-blue-600">🏠</div>
             <div class="text-[10px] text-blue-600 font-bold">ホーム</div>
         </a>
-        <div class="text-center min-w-[4rem]">
+        <a href="{{ route('members.index') }}" class="block text-center no-underline min-w-[4rem]">
             <div class="text-xl text-gray-300">👥</div>
             <div class="text-[10px] text-gray-400">メンバー</div>
-        </div>
+        </a>
         <a href="{{ route('profile.edit') }}" class="block text-center no-underline min-w-[4rem]">
             <div class="text-xl text-gray-300">⚙️</div>
             <div class="text-[10px] text-gray-400">設定</div>
