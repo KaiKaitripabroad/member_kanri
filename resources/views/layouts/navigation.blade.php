@@ -14,6 +14,12 @@
                 <div class="hidden sm:flex sm:items-center sm:ms-6 text-sm text-gray-500 dark:text-gray-400">
                     @if(request()->routeIs('profile.*'))
                     {{ __('Profile') }}
+                    @elseif(request()->routeIs('events.*'))
+                    {{ __('Events') }}
+                    @elseif(request()->routeIs('chat.*'))
+                    {{ __('Chat') }}
+                    @elseif(request()->routeIs('members.*'))
+                    {{ __('Members') }}
                     @else
                     {{ __('Dashboard') }}
                     @endif
@@ -36,18 +42,21 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+
+                        <x-dropdown-link :href="route('profile.edit')"
+                            class="block w-full px-4 py-2 text-left text-sm">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                class="block w-full px-4 py-2 text-left text-sm"
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
+
                     </x-slot>
                 </x-dropdown>
             </div>
